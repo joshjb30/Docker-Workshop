@@ -1,0 +1,24 @@
+version: "3.3"
+services:
+  website:
+    image: nginx
+    ports:
+      - "8081:80"
+    restart: always
+    networks:
+      coffee:
+        ipv4_address: 192.168.92.21
+  website2:
+    image: nginx
+    ports:
+      - "8082:80"
+    restart: always
+
+# This is equivalent to running the following command in CLI
+#   sudo docker network create coffee --subnet 192.168.92.0/24
+networks:
+  coffee:
+    ipam:
+      driver: default # default network is the bridge
+      config:
+        - subnet: "192.168.92.0/24"
